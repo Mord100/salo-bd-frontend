@@ -1,9 +1,12 @@
 import Home from "./pages/Home";
+import ProviderController from "./providers/ProviderController";
 
 export default function App() {
   return (
-   <div>
-    <Home/>
-   </div>
+    <ProviderController>
+      <div>
+        <Home/>
+      </div>
+    </ProviderController>
   )
 }
