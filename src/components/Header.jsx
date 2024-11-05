@@ -1,12 +1,20 @@
 import React from 'react'
+import { FaDroplet } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+
 
 const Header = () => {
   return (
-    <div>
-        <h1 className='flex text-2xl font-bold text-blue-700 justify-center w-full'>
-          Blood Donations Management System
-        </h1>
-    </div>
+    <header className='border-b text-gray-900 py-4 px-20'>
+        <div className='container mx-auto flex justify-between'>
+            <h1 className='text-2xl flex gap-2 items-center font-bold'>
+            <FaDroplet /> BDMS
+            </h1>
+            <Link to="/login" className='text-md text-gray-900 hover:text-gray-700 hover:underline'>
+                Admin Login
+            </Link>
+        </div>
+    </header>
   )
 }
 
