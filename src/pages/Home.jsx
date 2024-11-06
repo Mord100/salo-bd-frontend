@@ -1,14 +1,14 @@
 import React from 'react'
 import Header from '../components/Header'
 import Banner from '../components/Banner'
-import CreateDonation from '../components/CreateDonation'
+import CreateDonor from '../components/CreateDonor'
 
 const Home = () => {
   return (
     <div>
         <Header/>
         <Banner/>
-        <CreateDonation/>
+        <CreateDonor/>
     </div>
   )
 }

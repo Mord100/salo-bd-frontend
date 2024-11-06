@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import DonationsContext from '../context/DonationsContext'
 
 const CreateDonation = () => {
+  const { createDonation } = useContext(DonationsContext)
   const [formData, setFormData] = useState({
     donorName: '',
     donationDate: '',
@@ -19,10 +21,15 @@ const CreateDonation = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: Handle form submission
-    console.log(formData)
+    try {
+      await createDonation(formData)
+      console.log('Donation submitted:', formData)
+      // Optionally reset the form or show a success message
+    } catch (error) {
+      console.error('Error submitting donation:', error)
+    }
   }
 
   const checkEligibility = () => {
@@ -129,6 +136,7 @@ const CreateDonation = () => {
       </form>
     </div>
   )
+
 }
 
 export default CreateDonation
