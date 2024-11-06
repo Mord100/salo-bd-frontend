@@ -11,8 +11,8 @@ import {
 } from 'react-icons/ri';
 import { FaDroplet } from "react-icons/fa6";
 import { BiLogOut } from "react-icons/bi";
-
 import UserContext from '../context/UserContext';
+import ViewDonors from '../components/ViewDonors';
 
 const MenuItem = ({ icon: Icon, label, active = false, onClick }) => (
   <button 
@@ -71,11 +71,21 @@ const Admin = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeItem, setActiveItem] = useState('Dashboard');
   const { logout } = useContext(UserContext);
+  const [viewDonors, setViewDonors] = useState(false);
 
   const handleLogout = () => {
     logout();
     // Redirect to login page or any other page as per your requirement
     window.location.href = '/login';
+  };
+
+  const handleMenuItemClick = (item) => {
+    setActiveItem(item.label);
+    if (item.label === 'Donors') {
+      setViewDonors(true);
+    } else {
+      setViewDonors(false);
+    }
   };
 
   return (
@@ -110,7 +120,7 @@ const Admin = () => {
               key={item.label}
               {...item}
               active={activeItem === item.label}
-              onClick={() => setActiveItem(item.label)}
+              onClick={() => handleMenuItemClick(item)}
             />
           ))}
         </nav>
@@ -133,42 +143,48 @@ const Admin = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto p-6">
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Blood Bank Overview</h2>
-          </div>
+          {viewDonors ? (
+            <ViewDonors />
+          ) : (
+            <>
+              <div className="mb-6">
+                <h2 className="text-xl font-semibold text-gray-900">Blood Bank Overview</h2>
+              </div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <StatCard
-              icon={RiDropLine}
-              label="Total Blood Units"
-              value="1,285"
-            />
-            <StatCard
-              icon={RiUserHeartLine}
-              label="Active Donors"
-              value="856"
-            />
-            <StatCard
-              icon={RiCalendarEventLine}
-              label="Donations Today"
-              value="24"
-            />
-            <StatCard
-              icon={RiHospitalLine}
-              label="Hospitals"
-              value="32"
-            />
-          </div>
+              {/* Stats Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <StatCard
+                  icon={RiDropLine}
+                  label="Total Blood Units"
+                  value="1,285"
+                />
+                <StatCard
+                  icon={RiUserHeartLine}
+                  label="Active Donors"
+                  value="856"
+                />
+                <StatCard
+                  icon={RiCalendarEventLine}
+                  label="Donations Today"
+                  value="24"
+                />
+                <StatCard
+                  icon={RiHospitalLine}
+                  label="Hospitals"
+                  value="32"
+                />
+              </div>
 
-          {/* Blood Inventory Grid */}
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Blood Inventory</h3>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <BloodTypeCard type="A+" level="125" status="normal" />
-            <BloodTypeCard type="A-" level="45" status="critical" />
-            <BloodTypeCard type="B+" level="98" status="normal" />
-            <BloodTypeCard type="O-" level="38" status="low" />
-          </div>
+              {/* Blood Inventory Grid */}
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Blood Inventory</h3>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <BloodTypeCard type="A+" level="125" status="normal" />
+                <BloodTypeCard type="A-" level="45" status="critical" />
+                <BloodTypeCard type="B+" level="98" status="normal" />
+                <BloodTypeCard type="O-" level="38" status="low" />
+              </div>
+            </>
+          )}
         </main>
       </div>
     </div>

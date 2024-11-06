@@ -1,16 +1,24 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import DonationsContext from '../context/DonationsContext' 
+import { useCookies } from 'react-cookie'
 
 export const useDonations = () => useContext(DonationsContext)
 
 const DonationsProvider = ({ children }) => {
   const [donations, setDonations] = useState([])
+  const [cookies, setCookie, removeCookie] = useCookies(['token'])
 
   useEffect(() => {
+    // console.log('Token from cookies:', cookies.token)
     const fetchDonations = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/donations')
+        const token = cookies.token
+        const response = await axios.get('http://localhost:3000/api/donations', {
+          headers: {
+            'x-auth-token': token
+          }
+        })
         setDonations(response.data)
       } catch (error) {
         console.error('Error fetching donations:', error)
@@ -18,11 +26,16 @@ const DonationsProvider = ({ children }) => {
     }
 
     fetchDonations()
-  }, [])
+  }, [cookies.token])
 
   const createDonation = async (donation) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/donations', donation)
+      const token = cookies.token
+      const response = await axios.post('http://localhost:3000/api/donations', donation, {
+        headers: {
+          'x-auth-token': token
+        }
+      })
       setDonations([...donations, response.data])
     } catch (error) {
       console.error('Error creating donation:', error)
