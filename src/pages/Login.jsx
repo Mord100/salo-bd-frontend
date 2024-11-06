@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await login(email, password);
-      console.log('Login response:', response);
+      // console.log('Login response:', response);
       if (response) {
         toast.success('Login successful!');
         setTimeout(() => {
