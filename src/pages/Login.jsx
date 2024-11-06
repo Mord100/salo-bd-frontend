@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import UserContext from '../context/UserContext';
+import { RiArrowLeftSLine } from 'react-icons/ri';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ const Login = () => {
         toast.success('Login successful!');
         setTimeout(() => {
           navigate('/admin'); 
-        }, 100); // Delay navigation slightly
+        }, 100); 
       } else {
         toast.error('Invalid email or password');
       }
@@ -30,6 +31,13 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <button
+        onClick={() => navigate('/')}
+        className="absolute top-0 left-0 m-8 hover:underline text-gray-900 flex gap-1 items-center text-left"
+      >
+        <RiArrowLeftSLine size={20} />
+        Back
+      </button>
       <div className="w-[50%] p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold mb-2 text-center text-gray-800">
           Admin Login

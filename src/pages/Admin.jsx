@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { 
   RiDashboardLine, 
   RiUserHeartLine,
@@ -10,12 +10,15 @@ import {
   RiCalendarEventLine,
 } from 'react-icons/ri';
 import { FaDroplet } from "react-icons/fa6";
+import { BiLogOut } from "react-icons/bi";
+
+import UserContext from '../context/UserContext';
 
 const MenuItem = ({ icon: Icon, label, active = false, onClick }) => (
   <button 
     onClick={onClick}
     className={`
-      w-full flex items-center px-4 py-3 text-sm
+      w-full flex items-center px-4 py-3 text-md
       ${active 
         ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' 
         : 'text-gray-600 hover:bg-gray-50'
@@ -35,7 +38,7 @@ const StatCard = ({ icon: Icon, label, value }) => (
       </div>
     </div>
     <h3 className="text-2xl font-semibold text-gray-900 mb-1">{value}</h3>
-    <p className="text-sm text-gray-500">{label}</p>
+    <p className="text-md text-gray-500">{label}</p>
   </div>
 );
 
@@ -50,7 +53,7 @@ const BloodTypeCard = ({ type, level, status }) => (
         `} />
         <div>
           <h4 className="font-semibold text-gray-900">{type}</h4>
-          <p className="text-sm text-gray-500">{level} units</p>
+          <p className="text-md text-gray-500">{level} units</p>
         </div>
       </div>
       <span className={`
@@ -67,6 +70,13 @@ const BloodTypeCard = ({ type, level, status }) => (
 const Admin = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeItem, setActiveItem] = useState('Dashboard');
+  const { logout } = useContext(UserContext);
+
+  const handleLogout = () => {
+    logout();
+    // Redirect to login page or any other page as per your requirement
+    window.location.href = '/login';
+  };
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -78,7 +88,7 @@ const Admin = () => {
         <div className="p-4 flex items-center justify-between border-b">
           <div className={`flex items-center ${!isSidebarOpen && 'hidden'}`}>
             <FaDroplet className="w-7 h-7 text-gray-900 mr-2" /> 
-            <h1 className="font-semibold text-lg">Admin</h1>
+            <h1 className="font-semibold text-lg">BDMS-Admin</h1>
           </div>
           {/* <button 
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -92,9 +102,9 @@ const Admin = () => {
           {[
             { icon: RiDashboardLine, label: 'Dashboard' },
             { icon: RiUserHeartLine, label: 'Donors' },
-            { icon: RiDropLine, label: 'Inventory' },
-            { icon: RiHospitalLine, label: 'Hospitals' },
             { icon: RiCalendarEventLine, label: 'Donations' },
+            { icon: RiDropLine, label: 'Blood Stock' },
+            // { icon: RiHospitalLine, label: 'Hospitals' },
           ].map((item) => (
             <MenuItem
               key={item.label}
@@ -111,9 +121,12 @@ const Admin = () => {
         {/* Top Navigation */}
         <header className="bg-white border-b border-gray-100">
           <div className="flex items-center justify-end px-6 py-4">
-            <button className="flex items-center text-gray-600 hover:text-gray-900">
-              <RiLogoutCircleLine className="w-6 h-6 mr-2" /> {/* Increased icon size for bold look */}
-              <span className="text-sm">Logout</span>
+            <button 
+              onClick={handleLogout}
+              className="flex items-center text-gray-800 hover:underline hover:text-gray-900"
+            >
+              <BiLogOut className="w-6 h-6 mr-2" /> {/* Increased icon size for bold look */}
+              <span className="text-md">Logout</span>
             </button>
           </div>
         </header>
