@@ -30,17 +30,19 @@ const DonationsProvider = ({ children }) => {
 
   const createDonation = async (donation) => {
     try {
-      const token = cookies.token
+      const token = cookies.token;
+      console.log('Donation data being sent:', donation); // Log the donation data
       const response = await axios.post('http://localhost:3000/api/donations', donation, {
         headers: {
-          'x-auth-token': token
+          'x-auth-token': token,
+          'Content-Type': 'application/json'
         }
-      })
-      setDonations([...donations, response.data])
+      });
+      setDonations([...donations, response.data]);
     } catch (error) {
-      console.error('Error creating donation:', error)
+      console.error('Error creating donation:', error.response.data);
     }
-  }
+  };
 
   return (
     <DonationsContext.Provider value={{ donations, createDonation }}>
