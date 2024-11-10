@@ -1,8 +1,37 @@
-# React + Vite
+# Blood Donation Management System (BDMS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+The Blood Donation Management System (BDMS) is a web application designed to streamline the blood donation process. It connects donors with those in need, making blood donation more accessible and efficient. The application provides features for both donors and administrators to manage blood donation records effectively.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+- **User Authentication**: Secure login for administrators.
+- **Donor Registration**: Allows new donors to register and provide their information.
+- **Donation Management**: Admins can view and manage donation records.
+- **Blood Stock Management**: Track the available blood types and their quantities.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
+
+## Tech Stack
+
+- **Frontend**: 
+  - React
+  - Vite
+  - Tailwind CSS
+  - React Router
+  - Axios
+
+- **Backend**: 
+  - Node.js
+  - Express
+  - MongoDB (or any other database you are using)
+
+## Installation
+
+### Prerequisites
+
+- Node.js (version 14 or higher)
+- npm or yarn
+- MongoDB (if using a local database)
+
+### Clone the Repository
